@@ -1,1 +1,4 @@
-aaa
+packages:
+  - "apps/*"
+  - "services/*"
+  - "packages/*"
