@@ -1,10 +1,10 @@
 const products = [
-  { name: "Extension Cable", code: "MM-001", price: "KES 850" },
-  { name: "LED Flood Light", code: "MM-002", price: "KES 2,500" },
-  { name: "Wall Socket", code: "MM-003", price: "KES 350" },
-  { name: "Circuit Breaker", code: "MM-004", price: "KES 1,100" },
-  { name: "Phone Charger", code: "MM-005", price: "KES 1,200" },
-  { name: "TV Bracket", code: "MM-006", price: "KES 2,200" }
+  { id: "1", name: "Extension Cable", code: "MM-001", price: "KES 850" },
+  { id: "2", name: "LED Flood Light", code: "MM-002", price: "KES 2,500" },
+  { id: "3", name: "Wall Socket", code: "MM-003", price: "KES 350" },
+  { id: "4", name: "Circuit Breaker", code: "MM-004", price: "KES 1,100" },
+  { id: "5", name: "Phone Charger", code: "MM-005", price: "KES 1,200" },
+  { id: "6", name: "TV Bracket", code: "MM-006", price: "KES 2,200" }
 ];
 
 const cartItems = [
@@ -12,7 +12,7 @@ const cartItems = [
   { name: "Wall Socket", qty: 2, price: "KES 700" }
 ];
 
-export default function PosHomePage() {
+export default function PosPage() {
   return (
     <main className="pos-page">
       <header className="pos-header">
@@ -47,13 +47,13 @@ export default function PosHomePage() {
           </div>
 
           <div className="section-head">
-            <h2>Quick Products</h2>
-            <p>Tap an item to add it into the cart later.</p>
+            <h2>Quick products</h2>
+            <p>Tap-ready layout for fast in-store sales.</p>
           </div>
 
           <div className="product-grid">
             {products.map((product) => (
-              <article className="product-card" key={product.code}>
+              <article key={product.id} className="product-card">
                 <span className="code">{product.code}</span>
                 <h3>{product.name}</h3>
                 <strong>{product.price}</strong>
@@ -78,7 +78,7 @@ export default function PosHomePage() {
 
           <div className="cart-items">
             {cartItems.map((item, index) => (
-              <article className="cart-item" key={`${item.name}-${index}`}>
+              <article key={`${item.name}-${index}`} className="cart-item">
                 <div>
                   <h3>{item.name}</h3>
                   <p>Qty: {item.qty}</p>
