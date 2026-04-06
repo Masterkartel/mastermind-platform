@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { brand } from "@mastermind/theme";
 
 export const metadata: Metadata = {
-  title: "Mastermind Admin",
+  title: `${brand.shortName} Admin`,
   description:
-    "Mastermind Electricals & Electronics admin dashboard for inventory, orders, users and reports."
+    "Mastermind Electricals & Electronics admin dashboard for products, inventory, orders and users."
 };
 
 export default function RootLayout({
