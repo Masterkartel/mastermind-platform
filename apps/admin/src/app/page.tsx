@@ -1,45 +1,45 @@
 const stats = [
   { label: "Today's Sales", value: "KES 0" },
   { label: "Open Orders", value: "0" },
-  { label: "Low Stock Items", value: "0" },
+  { label: "Low Stock", value: "0" },
   { label: "Active Clerks", value: "0" }
 ];
 
-const quickLinks = [
+const areas = [
   {
     title: "Products",
-    text: "Add, edit and organize products, categories, pricing and images."
+    text: "Manage products, pricing, categories and images."
   },
   {
     title: "Inventory",
-    text: "Track stock levels, adjustments, low-stock alerts and movements."
+    text: "Track stock levels, adjustments and low-stock items."
   },
   {
     title: "Orders",
-    text: "Review online and POS orders, payment status and fulfillment."
+    text: "Review online and in-store orders in one place."
   },
   {
     title: "Users",
-    text: "Create admins and clerks, manage permissions and activity."
+    text: "Create admins and clerks with proper access control."
   },
   {
     title: "Reports",
-    text: "Monitor sales performance, top items and profit trends."
+    text: "Monitor daily sales, top products and future profit trends."
   },
   {
     title: "Settings",
-    text: "Control branding, shop details, payment setup and preferences."
+    text: "Keep shop details, payments and system preferences organized."
   }
 ];
 
-export default function AdminHomePage() {
+export default function AdminPage() {
   return (
     <main className="admin-page">
       <aside className="sidebar">
-        <div className="brand">
-          <span className="brand__badge">Mastermind</span>
+        <div className="brand-box">
+          <span className="badge">Mastermind</span>
           <h1>Admin</h1>
-          <p>Control center for products, stock, sales and staff.</p>
+          <p>Professional control center for the whole business.</p>
         </div>
 
         <nav className="nav">
@@ -59,8 +59,10 @@ export default function AdminHomePage() {
           <div>
             <span className="eyebrow">Mastermind Admin</span>
             <h2>Dashboard Overview</h2>
+            <p>Built for real shop control, stock flow and growth.</p>
           </div>
-          <div className="topbar__actions">
+
+          <div className="topbar-actions">
             <a href="/products/new" className="btn btn--primary">
               Add Product
             </a>
@@ -72,7 +74,7 @@ export default function AdminHomePage() {
 
         <section className="stats-grid">
           {stats.map((item) => (
-            <article className="stat-card" key={item.label}>
+            <article key={item.label} className="stat-card">
               <span>{item.label}</span>
               <strong>{item.value}</strong>
             </article>
@@ -80,14 +82,14 @@ export default function AdminHomePage() {
         </section>
 
         <section className="panel">
-          <div className="panel__head">
-            <h3>Quick Management Areas</h3>
-            <p>Everything important in one place.</p>
+          <div className="panel-head">
+            <h3>Quick management areas</h3>
+            <p>Everything essential for operations and oversight.</p>
           </div>
 
           <div className="quick-grid">
-            {quickLinks.map((item) => (
-              <article className="quick-card" key={item.title}>
+            {areas.map((item) => (
+              <article key={item.title} className="quick-card">
                 <h4>{item.title}</h4>
                 <p>{item.text}</p>
               </article>
@@ -97,26 +99,28 @@ export default function AdminHomePage() {
 
         <section className="split-grid">
           <article className="panel">
-            <div className="panel__head">
-              <h3>Recent Activity</h3>
-              <p>Latest changes will appear here later.</p>
+            <div className="panel-head">
+              <h3>Recent activity</h3>
+              <p>Live updates will appear here after backend connection.</p>
             </div>
+
             <div className="empty-state">
-              No activity yet. Once products, orders and sales are live, this
-              panel will update automatically.
+              No activity yet. Product changes, stock movements and orders will
+              show here once the backend is connected.
             </div>
           </article>
 
           <article className="panel">
-            <div className="panel__head">
-              <h3>System Notes</h3>
-              <p>Important reminders for the shop.</p>
+            <div className="panel-head">
+              <h3>System notes</h3>
+              <p>Foundation rules for the platform.</p>
             </div>
+
             <ul className="notes">
-              <li>Products will sync across customer, admin and POS.</li>
-              <li>Stock changes will reflect automatically after each sale.</li>
-              <li>Role-based access will control admin and clerk actions.</li>
-              <li>Reports will summarize daily, weekly and monthly performance.</li>
+              <li>Products should sync across storefront, admin and POS.</li>
+              <li>Inventory should update after every completed sale.</li>
+              <li>Roles should separate admin and clerk permissions.</li>
+              <li>Reports should support daily, weekly and monthly views.</li>
             </ul>
           </article>
         </section>
