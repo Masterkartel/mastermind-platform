@@ -1,4 +1,8 @@
-export default function HomePage() {
+import { getProducts } from "@/lib/products";
+
+export default async function HomePage() {
+  const data = await getProducts();
+
   return (
     <main className="page">
       <section className="hero">
@@ -10,69 +14,19 @@ export default function HomePage() {
             lighting solutions and dependable customer service for homes,
             businesses and projects.
           </p>
-
-          <div className="hero__actions">
-            <a href="/shop" className="btn btn--primary">
-              Shop Now
-            </a>
-            <a href="/contact" className="btn btn--ghost">
-              Contact Us
-            </a>
-          </div>
         </div>
       </section>
 
       <section className="section">
-        <h2>What we offer</h2>
+        <h2>Live Products</h2>
         <div className="grid">
-          <article className="card">
-            <h3>Electrical Supplies</h3>
-            <p>
-              Cables, sockets, switches, breakers, fittings, conduits and more.
-            </p>
-          </article>
-
-          <article className="card">
-            <h3>Electronics</h3>
-            <p>
-              Selected electronics and accessories for home and business use.
-            </p>
-          </article>
-
-          <article className="card">
-            <h3>Reliable Service</h3>
-            <p>
-              Fast response, smooth ordering and support you can count on.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section className="section">
-        <h2>Why Mastermind</h2>
-        <div className="grid">
-          <article className="card">
-            <h3>Trusted Quality</h3>
-            <p>
-              Products chosen to serve both everyday buyers and serious project
-              needs.
-            </p>
-          </article>
-
-          <article className="card">
-            <h3>Fair Pricing</h3>
-            <p>
-              Competitive pricing with room for future online and in-store
-              offers.
-            </p>
-          </article>
-
-          <article className="card">
-            <h3>Growing Platform</h3>
-            <p>
-              Customer storefront, admin control and POS all working together.
-            </p>
-          </article>
+          {data.products.map((product) => (
+            <article className="card" key={product.id || product.code}>
+              <h3>{product.name || product.title}</h3>
+              <p>Code: {product.code || "-"}</p>
+              <p>Price: KES {product.price}</p>
+            </article>
+          ))}
         </div>
       </section>
     </main>
