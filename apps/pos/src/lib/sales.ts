@@ -1,19 +1,13 @@
-import { apiFetch } from "./api";
-
-export type PosSalePayload = {
-  source: "pos";
-  items: Array<{
-    productId?: string;
-    name: string;
-    qty: number;
-    price: number;
-  }>;
-  paymentMethod: "cash" | "paystack";
-};
-
-export async function createPosSale(payload: PosSalePayload) {
-  return apiFetch<{ orderCreated: boolean }>("/api/orders", {
-    method: "POST",
-    json: payload
+export async function createPosSale(payload:any){
+  const res = await fetch("/api/sales",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json"},
+    body:JSON.stringify(payload)
   });
+
+  if(!res.ok){
+    throw new Error("Failed to create sale");
+  }
+
+  return res.json();
 }
