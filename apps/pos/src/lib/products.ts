@@ -1,1 +1,1 @@
-export { posApi as api } from "./api";
+export * from "./api";
