@@ -2,15 +2,14 @@ const COMMERCE_URL =
   process.env.NEXT_PUBLIC_COMMERCE_URL?.replace(/\/$/, "") ||
   "http://127.0.0.1:8000";
 
+type QueryValue = string | number | boolean | undefined | null;
+
 type ApiOptions = RequestInit & {
-  query?: Record<string, string | number | boolean | undefined | null>;
+  query?: Record<string, QueryValue>;
 };
 
-function buildUrl(path: string, query?: ApiOptions["query"]) {
-  const url = new URL(
-    path.startsWith("/") ? path : `/${path}`,
-    COMMERCE_URL
-  );
+function buildUrl(path: string, query?: Record<string, QueryValue>) {
+  const url = new URL(path.startsWith("/") ? path : `/${path}`, COMMERCE_URL);
 
   if (query) {
     for (const [key, value] of Object.entries(query)) {
@@ -50,17 +49,30 @@ export type Product = {
   slug?: string;
   sku?: string;
   price?: number | string;
+  formatted_price?: string;
   special_price?: number | string | null;
-  image?: string | null;
-  images?: string[];
-  description?: string;
+  formatted_special_price?: string;
   short_description?: string;
-  in_stock?: boolean;
+  description?: string;
+  images?: Array<{
+    url?: string;
+    small_image_url?: string;
+    medium_image_url?: string;
+    large_image_url?: string;
+    original_image_url?: string;
+  }>;
 };
 
-export type ProductListResponse = {
+export type ProductsResponse = {
   data?: Product[];
-  products?: Product[];
+  links?: unknown[];
+  meta?: Record<string, unknown>;
+};
+
+export type Category = {
+  id: number | string;
+  name: string;
+  slug?: string;
 };
 
 export async function getProducts(params?: {
@@ -69,34 +81,50 @@ export async function getProducts(params?: {
   category_id?: number | string;
   search?: string;
 }) {
-  return apiFetch<ProductListResponse>("/api/products", {
+  return apiFetch<ProductsResponse>("/api/products", {
     method: "GET",
     query: params,
   });
 }
 
-export async function getProductBySlug(slug: string) {
-  return apiFetch<Product>(`/api/products/${slug}`, {
+export async function getCategories() {
+  return apiFetch<Category[]>("/api/categories", {
     method: "GET",
   });
 }
 
-export async function createCart(payload: {
-  items: Array<{ product_id: number | string; quantity: number }>;
+export async function getCart() {
+  return apiFetch("/api/checkout/cart", {
+    method: "GET",
+  });
+}
+
+export async function addToCart(payload: {
+  product_id: number | string;
+  quantity: number;
 }) {
-  return apiFetch("/api/cart", {
+  return apiFetch("/api/checkout/cart", {
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
 
-export async function createOrder(payload: {
-  customer_name: string;
-  customer_phone: string;
-  items: Array<{ product_id: number | string; quantity: number }>;
-  payment_method?: string;
-}) {
-  return apiFetch("/api/orders", {
+export async function updateCart(payload: unknown) {
+  return apiFetch("/api/checkout/cart", {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function removeCartItem(payload: unknown) {
+  return apiFetch("/api/checkout/cart", {
+    method: "DELETE",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function placeOrder(payload: unknown) {
+  return apiFetch("/api/checkout/onepage/orders", {
     method: "POST",
     body: JSON.stringify(payload),
   });
