@@ -1,55 +1,34 @@
-import { getProducts } from "../lib/api";
+import { getProducts } from "@/src/lib/api";
 
 export default async function HomePage() {
-  let data: any = null;
-  let error = "";
+  let items: any[] = [];
 
   try {
-    data = await getProducts();
-  } catch (e: any) {
-    error = e?.message || "Failed to load products";
+    const result = await getProducts({ page: 1, limit: 12 });
+    items = result.data || result.products || [];
+  } catch (error) {
+    console.error("Failed to load products:", error);
   }
 
-  const products = Array.isArray(data)
-    ? data
-    : data?.data || data?.products || [];
-
   return (
-    <main style={{ padding: "24px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Mastermind Electricals & Electronics</h1>
-      <p>Modern storefront connected to Bagisto</p>
+    <main className="p-6">
+      <h1 className="text-2xl font-bold mb-6">Mastermind Storefront</h1>
 
-      {error ? (
-        <p style={{ color: "red" }}>Error: {error}</p>
-      ) : null}
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-          gap: "16px",
-          marginTop: "24px",
-        }}
-      >
-        {products.length > 0 ? (
-          products.map((product: any) => (
-            <div
-              key={product.id}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "12px",
-                padding: "16px",
-              }}
-            >
-              <h3>{product.name || product.title || "Unnamed Product"}</h3>
-              <p>SKU: {product.sku || "-"}</p>
-              <p>Price: {product.price || product.formatted_price || "-"}</p>
+      {items.length === 0 ? (
+        <p>No products found.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {items.map((product) => (
+            <div key={product.id} className="border rounded-xl p-4">
+              <h2 className="font-semibold">{product.name}</h2>
+              <p className="text-sm opacity-70">{product.sku}</p>
+              <p className="mt-2 font-bold">
+                {product.special_price || product.price || "Price unavailable"}
+              </p>
             </div>
-          ))
-        ) : (
-          <p>No products yet.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
