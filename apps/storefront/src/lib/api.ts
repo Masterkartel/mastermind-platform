@@ -1,42 +1,105 @@
-export const API_URL = "http://127.0.0.1:8000/api";
+const COMMERCE_URL =
+  process.env.NEXT_PUBLIC_COMMERCE_URL?.replace(/\/$/, "") ||
+  "http://127.0.0.1:8000";
 
-type ApiFetchOptions = RequestInit & {
-  json?: unknown;
+type ApiOptions = RequestInit & {
+  query?: Record<string, string | number | boolean | undefined | null>;
 };
 
-export async function apiFetch<T = any>(
-  path: string,
-  options: ApiFetchOptions = {}
-): Promise<T> {
-  const { json, headers, ...rest } = options;
+function buildUrl(path: string, query?: ApiOptions["query"]) {
+  const url = new URL(
+    path.startsWith("/") ? path : `/${path}`,
+    COMMERCE_URL
+  );
 
-  const res = await fetch(`${API_URL}${path}`, {
+  if (query) {
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined && value !== null && value !== "") {
+        url.searchParams.set(key, String(value));
+      }
+    }
+  }
+
+  return url.toString();
+}
+
+async function apiFetch<T>(path: string, options: ApiOptions = {}): Promise<T> {
+  const { query, headers, ...rest } = options;
+
+  const response = await fetch(buildUrl(path, query), {
     ...rest,
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
-      ...(headers || {}),
+      ...headers,
     },
-    body: json !== undefined ? JSON.stringify(json) : rest.body,
     cache: "no-store",
   });
 
-  if (!res.ok) {
-    throw new Error(`API request failed: ${res.status}`);
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`API ${response.status}: ${text}`);
   }
 
-  return res.json() as Promise<T>;
+  return response.json() as Promise<T>;
 }
 
-export const storefrontApi = {
-  get: <T = any>(path: string) => apiFetch<T>(path),
-  post: <T = any>(path: string, json?: unknown) =>
-    apiFetch<T>(path, { method: "POST", json }),
-  put: <T = any>(path: string, json?: unknown) =>
-    apiFetch<T>(path, { method: "PUT", json }),
-  delete: <T = any>(path: string) =>
-    apiFetch<T>(path, { method: "DELETE" }),
+export type Product = {
+  id: number | string;
+  name: string;
+  slug?: string;
+  sku?: string;
+  price?: number | string;
+  special_price?: number | string | null;
+  image?: string | null;
+  images?: string[];
+  description?: string;
+  short_description?: string;
+  in_stock?: boolean;
 };
 
-export async function getProducts() {
-  return apiFetch("/products");
+export type ProductListResponse = {
+  data?: Product[];
+  products?: Product[];
+};
+
+export async function getProducts(params?: {
+  page?: number;
+  limit?: number;
+  category_id?: number | string;
+  search?: string;
+}) {
+  return apiFetch<ProductListResponse>("/api/products", {
+    method: "GET",
+    query: params,
+  });
 }
+
+export async function getProductBySlug(slug: string) {
+  return apiFetch<Product>(`/api/products/${slug}`, {
+    method: "GET",
+  });
+}
+
+export async function createCart(payload: {
+  items: Array<{ product_id: number | string; quantity: number }>;
+}) {
+  return apiFetch("/api/cart", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function createOrder(payload: {
+  customer_name: string;
+  customer_phone: string;
+  items: Array<{ product_id: number | string; quantity: number }>;
+  payment_method?: string;
+}) {
+  return apiFetch("/api/orders", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export { COMMERCE_URL };
