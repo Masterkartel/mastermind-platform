@@ -18,23 +18,28 @@ export default async function HomePage() {
         <p>No products found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {products.map((product) => (
-            <div key={product.id} className="border rounded-xl p-4">
-              <h2 className="font-semibold">{product.name}</h2>
+          {products.map((product) => {
+  const price =
+    product.formatted_special_price ||
+    product.formatted_price ||
+    product.price ||
+    product?.price_range?.minimum_price?.final_price?.formatted_price ||
+    product?.price_range?.minimum_price?.regular_price?.formatted_price ||
+    "-";
 
-              <p className="text-sm opacity-70">{product.sku || "No SKU"}</p>
+  const sku = product.sku || product.id || "-";
 
-              <p className="mt-2 font-bold">
-                {product.formatted_special_price ||
-                  product.formatted_price ||
-                  product.special_price ||
-                  product.price ||
-                  "No price"}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
-    </main>
+  return (
+    <div key={product.id} className="border rounded-xl p-4">
+      <h2 className="font-semibold">{product.name}</h2>
+
+      <p className="text-sm opacity-70">
+        SKU: {sku}
+      </p>
+
+      <p className="mt-2 font-bold">
+        Price: {price}
+      </p>
+    </div>
   );
-}
+})}
