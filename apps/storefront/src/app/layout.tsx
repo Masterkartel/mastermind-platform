@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { brand } from "@mastermind/theme";
 
 export const metadata: Metadata = {
-  title: brand.name,
+  title: "Mastermind Electricals & Electronics",
   description:
     "Mastermind Electricals & Electronics - quality electrical materials, electronics, accessories and trusted service."
 };
