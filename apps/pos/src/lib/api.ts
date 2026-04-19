@@ -14,24 +14,43 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
   });
 
   if (!response.ok) {
-    throw new Error(`API ${response.status}: ${await response.text()}`);
+    const text = await response.text();
+    throw new Error(`API ${response.status}: ${text}`);
   }
 
   return response.json() as Promise<T>;
 }
 
 export async function getProducts() {
-  return apiFetch("/api/products");
+  return apiFetch("/api/products", { method: "GET" });
 }
 
-export async function createSale(payload: {
-  items: Array<{ product_id: number | string; quantity: number; price?: number }>;
-  customer_name?: string;
-  customer_phone?: string;
-  payment_method?: string;
+export async function getCart() {
+  return apiFetch("/api/checkout/cart", { method: "GET" });
+}
+
+export async function addToCart(payload: {
+  product_id: number | string;
+  quantity: number;
 }) {
-  return apiFetch("/api/orders", {
+  return apiFetch("/api/checkout/cart", {
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
+
+export async function updateCart(payload: unknown) {
+  return apiFetch("/api/checkout/cart", {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function createOrder(payload: unknown) {
+  return apiFetch("/api/checkout/onepage/orders", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export { COMMERCE_URL };
