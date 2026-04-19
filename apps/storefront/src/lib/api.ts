@@ -27,6 +27,16 @@ export async function apiFetch<T = any>(
   return res.json() as Promise<T>;
 }
 
+export const storefrontApi = {
+  get: <T = any>(path: string) => apiFetch<T>(path),
+  post: <T = any>(path: string, json?: unknown) =>
+    apiFetch<T>(path, { method: "POST", json }),
+  put: <T = any>(path: string, json?: unknown) =>
+    apiFetch<T>(path, { method: "PUT", json }),
+  delete: <T = any>(path: string) =>
+    apiFetch<T>(path, { method: "DELETE" }),
+};
+
 export async function getProducts() {
   return apiFetch("/products");
 }
