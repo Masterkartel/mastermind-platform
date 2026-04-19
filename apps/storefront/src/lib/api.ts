@@ -1,12 +1,22 @@
 export const API_URL = "http://127.0.0.1:8000/api";
 
-export async function apiFetch(path: string, init?: RequestInit) {
+type ApiFetchOptions = RequestInit & {
+  json?: unknown;
+};
+
+export async function apiFetch<T = any>(
+  path: string,
+  options: ApiFetchOptions = {}
+): Promise<T> {
+  const { json, headers, ...rest } = options;
+
   const res = await fetch(`${API_URL}${path}`, {
-    ...init,
+    ...rest,
     headers: {
       "Content-Type": "application/json",
-      ...(init?.headers || {}),
+      ...(headers || {}),
     },
+    body: json !== undefined ? JSON.stringify(json) : rest.body,
     cache: "no-store",
   });
 
@@ -14,7 +24,7 @@ export async function apiFetch(path: string, init?: RequestInit) {
     throw new Error(`API request failed: ${res.status}`);
   }
 
-  return res.json();
+  return res.json() as Promise<T>;
 }
 
 export async function getProducts() {
