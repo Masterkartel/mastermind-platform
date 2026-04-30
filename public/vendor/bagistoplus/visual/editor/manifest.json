@@ -1,0 +1,17 @@
+{
+  "resources/assets/editor/index.ts": {
+    "file": "assets/index-GXOfLATq.js",
+    "name": "index",
+    "src": "resources/assets/editor/index.ts",
+    "isEntry": true,
+    "css": [
+      "assets/index-Ba6OF_gp.css"
+    ]
+  },
+  "resources/assets/editor/injected.ts": {
+    "file": "assets/injected-Dl3UALAJ.js",
+    "name": "injected",
+    "src": "resources/assets/editor/injected.ts",
+    "isEntry": true
+  }
+}

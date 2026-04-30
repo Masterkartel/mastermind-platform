@@ -1,0 +1,262 @@
+{
+    "blocks": {
+        "announcement-bar": {
+            "type": "@visual-debut/announcement-bar",
+            "id": "announcement-bar",
+            "parentId": null,
+            "children": []
+        },
+        "visual_debut_logo_0_8343267e_90ba2223": {
+            "id": "visual_debut_logo_0_8343267e_90ba2223",
+            "type": "@visual-debut/logo",
+            "name": "Logo",
+            "properties": {
+                "logo_text": "Mastermin",
+                "color_scheme": null
+            },
+            "parentId": "container-logo_9d7fa7a3",
+            "children": [],
+            "disabled": false,
+            "static": false,
+            "repeated": false,
+            "ghost": false,
+            "semanticId": null,
+            "index": 1,
+            "iteration": 2
+        },
+        "container-logo_9d7fa7a3": {
+            "id": "container-logo_9d7fa7a3",
+            "type": "@visual-debut/group",
+            "name": "Logo",
+            "properties": {
+                "layout_type": "flex",
+                "flex_direction": "row",
+                "vertical_justify_content": null,
+                "vertical_align_items": null,
+                "horizontal_justify_content": null,
+                "horizontal_align_items": null,
+                "flex_gap": 4,
+                "color_scheme": null,
+                "grid_columns": 3,
+                "grid_rows": "auto",
+                "grid_gap": 4,
+                "padding": null,
+                "margin": null,
+                "width": "auto",
+                "custom_width": 100,
+                "min_width": 0,
+                "max_width": "none",
+                "height": "auto",
+                "custom_height": 400,
+                "min_height": 0,
+                "border": false,
+                "border_width": 1,
+                "border_style": "solid",
+                "border_color": "currentColor",
+                "border_opacity": 100,
+                "border_radius": "none",
+                "background_type": "none",
+                "background_color": "rgba(0, 0, 0, 0)",
+                "background_gradient": null,
+                "background_image": null,
+                "background_position": "center",
+                "background_size": "cover",
+                "background_repeat": "no-repeat",
+                "is_overlay": false,
+                "overlay_visibility": "always",
+                "overlay_hover_target": "parent",
+                "z_index": 10,
+                "position": "static",
+                "gap": {
+                    "_default": 4
+                }
+            },
+            "parentId": "main-header",
+            "children": [
+                "be05e958-e9c9-487e-9f02-ce47ee2ac690",
+                "visual_debut_logo_0_8343267e_90ba2223",
+                "5cdcaa9b-5e2d-4715-92e1-63b5a118957e"
+            ],
+            "disabled": false,
+            "static": false,
+            "repeated": false,
+            "ghost": false,
+            "semanticId": null,
+            "index": 0,
+            "iteration": 1
+        },
+        "navigation_19f9ec69": {
+            "type": "@visual-debut/header-nav",
+            "id": "navigation_19f9ec69",
+            "name": "Navigation",
+            "parentId": "container-nav_186ca83a",
+            "children": []
+        },
+        "container-nav_186ca83a": {
+            "type": "@visual-debut/group",
+            "id": "container-nav_186ca83a",
+            "name": "Navigation",
+            "properties": {
+                "layout_type": "flex",
+                "justify_content": "start",
+                "gap": {
+                    "_default": 4
+                },
+                "width": "full"
+            },
+            "children": [
+                "navigation_19f9ec69"
+            ],
+            "parentId": "main-header"
+        },
+        "currency-selector_f5098607": {
+            "type": "@visual-debut/header-currency",
+            "id": "currency-selector_f5098607",
+            "name": "Currency Selector",
+            "parentId": "container-actions_8ad895b5",
+            "children": []
+        },
+        "locale-selector_4b6ecffd": {
+            "type": "@visual-debut/header-locale",
+            "id": "locale-selector_4b6ecffd",
+            "name": "Language Selector",
+            "properties": {
+                "icon": "lucide-globe"
+            },
+            "parentId": "container-actions_8ad895b5",
+            "children": []
+        },
+        "search_ed447185": {
+            "type": "@visual-debut/header-search",
+            "id": "search_ed447185",
+            "name": "Search Form",
+            "properties": {
+                "search_icon": "lucide-search",
+                "image_search_icon": "lucide-camera"
+            },
+            "parentId": "container-actions_8ad895b5",
+            "children": []
+        },
+        "compare_07227deb": {
+            "type": "@visual-debut/header-compare",
+            "id": "compare_07227deb",
+            "name": "Compare",
+            "properties": {
+                "icon": "lucide-arrow-left-right"
+            },
+            "parentId": "container-actions_8ad895b5",
+            "children": []
+        },
+        "user_5cdf71c1": {
+            "type": "@visual-debut/header-user",
+            "id": "user_5cdf71c1",
+            "name": "User Menu",
+            "properties": {
+                "icon": "lucide-user",
+                "guest_heading": "Welcome Guest",
+                "guest_description": "Manage Cart, Orders & Wishlist"
+            },
+            "parentId": "container-actions_8ad895b5",
+            "children": []
+        },
+        "cart_60c8a578": {
+            "type": "@visual-debut/header-cart",
+            "id": "cart_60c8a578",
+            "name": "Cart Preview",
+            "properties": {
+                "heading": "Shopping Cart",
+                "description": "Get Up To 30% OFF on your 1st order"
+            },
+            "parentId": "container-actions_8ad895b5",
+            "children": []
+        },
+        "container-actions_8ad895b5": {
+            "type": "@visual-debut/group",
+            "id": "container-actions_8ad895b5",
+            "name": "Actions",
+            "properties": {
+                "layout_type": "flex",
+                "justify_content": "end",
+                "gap": {
+                    "_default": 2
+                },
+                "width": "auto"
+            },
+            "children": [
+                "currency-selector_f5098607",
+                "locale-selector_4b6ecffd",
+                "search_ed447185",
+                "compare_07227deb",
+                "user_5cdf71c1",
+                "cart_60c8a578"
+            ],
+            "parentId": "main-header"
+        },
+        "main-header": {
+            "type": "@visual-debut/header",
+            "id": "main-header",
+            "properties": {
+                "content_width": "container"
+            },
+            "children": [
+                "container-logo_9d7fa7a3",
+                "container-nav_186ca83a",
+                "container-actions_8ad895b5"
+            ],
+            "parentId": null
+        },
+        "39e92e4c-6d39-4759-94bf-6c6b50f53c46": {
+            "type": "@visual-debut/text",
+            "id": "39e92e4c-6d39-4759-94bf-6c6b50f53c46",
+            "name": "Text",
+            "properties": {
+                "text": "We make things that work better and last longer. Our products solve real problems with clean design and honest materials.",
+                "width": "fit-content",
+                "max_width": "none",
+                "alignment": "left",
+                "color": "default",
+                "text_color": "#000000FF"
+            },
+            "children": [],
+            "parentId": "container-logo_9d7fa7a3"
+        },
+        "5cdcaa9b-5e2d-4715-92e1-63b5a118957e": {
+            "type": "@visual-debut/text",
+            "id": "5cdcaa9b-5e2d-4715-92e1-63b5a118957e",
+            "name": "Text",
+            "properties": {
+                "text": "We make things that work better and last longer. Our products solve real problems with clean design and honest materials.",
+                "width": "fit-content",
+                "max_width": "none",
+                "alignment": "left",
+                "color": "default",
+                "text_color": "#000000FF"
+            },
+            "children": [],
+            "parentId": "container-logo_9d7fa7a3"
+        },
+        "be05e958-e9c9-487e-9f02-ce47ee2ac690": {
+            "type": "@visual-debut/link",
+            "id": "be05e958-e9c9-487e-9f02-ce47ee2ac690",
+            "name": "Link",
+            "properties": {
+                "text": "Link",
+                "url": "/",
+                "open_in_new_tab": false,
+                "underline": "hover"
+            },
+            "children": [],
+            "parentId": "container-logo_9d7fa7a3"
+        }
+    },
+    "regions": [
+        {
+            "name": "header",
+            "blocks": [
+                "announcement-bar",
+                "main-header"
+            ],
+            "shared": true
+        }
+    ]
+}

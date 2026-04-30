@@ -18,6 +18,8 @@
         "ext-pdo_mysql": "*",
         "ext-tokenizer": "*",
         "astrotomic/laravel-translatable": "^11.16",
+        "bagistoplus/visual": "^2.0@dev",
+        "bagistoplus/visual-debut": "^2.0@dev",
         "barryvdh/laravel-dompdf": "^2.0.0|^3.0",
         "diglactic/laravel-breadcrumbs": "^10.0",
         "elasticsearch/elasticsearch": "^8.10",
@@ -65,6 +67,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "BagistoPlus\\Visual\\": "packages/visual/src",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Webkul\\Admin\\": "packages/Webkul/Admin/src",
@@ -156,7 +159,7 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "support": {
         "issues": "https://github.com/bagisto/bagisto/issues",
